@@ -8,18 +8,22 @@
 -> # Table of Contents <-
 ==============
 
-* What is a Service Account Token
-* How are they being used
-* What changed
+-> # What is a Service Account Token  <-
+-> # Service Account Token as a YAML <-
+-> # Old Service Account Token Behavior  <-
+-> # What is a Bound Service Account Token  <-
+-> # Lord of Tokens: Kubelet <-
+-> # Lord of ServiceAccounts: Service Account Admission Controller <-
+-> # Bound Service Account Token in use by a Pod <-
 
 -------------------------------------------------
 -> # What is a Service Account Token  <-
 
-An identity that an instance or an applicadtion can use to make API requests
+An **identity** that an instance or an application can use to make **API requests**:
 
-1. Intended to be used for processes.
-2. Bound to a namespace.
-3. Being associated with a ServiceAccount provides a Bearer Token.
+1. Intended to be used for **processes**.
+2. Bound to a **namespace**.
+3. Being associated with a ServiceAccount provides a **Bearer Token**.
 
 -------------------------------------------------
 -> # Service Account Token as a YAML <-
@@ -35,17 +39,22 @@ metadata:
 -------------------------------------------------
 -> # Old Service Account Token Behavior  <-
 
-1. Previously didn't expire.
-2. Previously could be used anywhere.
-3. Token was stored in a secret.
+
+1. Previously **didn't expire**.
+2. Previously could be **used anywhere**.
+3. Token was **stored in a secret**.
 
 -------------------------------------------------
 -> # What is a Bound Service Account Token  <-
 
 - A Service Account Token that is **bound** to an **audience and lifespan**.
 - Given by **volume projection** or **TokenRequestAPI**.
-- kubelet tries to rotate it after 80% of its lifetime is over.
-- kubelet acquires it from the apiserver through the TokenRequestAPI.
+
+-------------------------------------------------
+-> # Lord of Tokens: Kubelet <-
+
+- Tries to **rotate** it after 80% of its lifetime is over.
+- Acquires it from the `apiserver` through the `TokenRequestAPI`.
 
 -------------------------------------------------
 -> # Lord of ServiceAccounts: Service Account Admission Controller <-
