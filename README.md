@@ -4,9 +4,9 @@ This repository contains resources and scripts to understand Kubernetes better.
 
 ## Table of Contents
 
-- [Setup](#setup)
-- [Exploring the Cluster](#exploring-the-cluster)
-- [Service Accounts and Tokens](#service-accounts-and-tokens)
+- [Bound Service Account](#bound-service-account)
+    - [Setup](#setup)
+    - [Play](#play)
 
 ## Bound Service-Account
 
