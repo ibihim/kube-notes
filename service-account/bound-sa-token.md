@@ -36,30 +36,26 @@ metadata:
 -> # Old Service Account Token Behavior  <-
 
 1. Previously didn't expire.
-2. Token was stored in a secret.
+2. Previously could be used anywhere.
+3. Token was stored in a secret.
 
 -------------------------------------------------
 -> # What is a Bound Service Account Token  <-
 
-- A Service Account Token that is **bound** to an **audience and timespan**.
+- A Service Account Token that is **bound** to an **audience and lifespan**.
 - Given by **volume projection** or **TokenRequestAPI**.
 - kubelet tries to rotate it after 80% of its lifetime is over.
-- kubelet acquires it from the apiserver.
+- kubelet acquires it from the apiserver through the TokenRequestAPI.
 
 -------------------------------------------------
--> # Lord of Tokens: Admission Controller <-
+-> # Lord of ServiceAccounts: Service Account Admission Controller <-
 
-- In case that a Pod doesn't have a `ServiceAccount` specified, it gets the default one by the **Admission Controller**.
-- Automounts an extra volume that contains the Bearer Token.
-- Path for the Bearer Token is `/var/run/secrets/kubernetes.io/serviceaccount`
-- Copies ImagePullSecrets, if not in the PodSpec.
+In case that a **Pod Manifest** doesn't have a `ServiceAccount` specified:
+- adds the default `ServiceAccount`,
+- adds a **projected volume** and
+- adds `ImagePullSecrets`
 
--------------------------------------------------
--> # The other Lord of Tokens: Token Controller <-
-
-- Creates ServiceAccount secrets
-- Has private key to sign the bearer token.
-- Public key needs to be shared with apiserver.
+Runs within the `apiserver`.
 
 -------------------------------------------------
 -> # Bound Service Account Token in use by a Pod <-
@@ -101,4 +97,17 @@ metadata:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 ```
+
+-------------------------------------------------
+-> # Lord of Tokens: Token Controller <-
+
+- Creates `ServiceAccount` `secret`
+- Has **private key** to sign the **bearer token**.
+- **Public key** needs to be shared with **apiserver**.
+
+Runs within the `kube-controller-manager`.
+
+-------------------------------------------------
+-> # Misc <-
+- Path for the Bearer Token is `/var/run/secrets/kubernetes.io/serviceaccount`
 
