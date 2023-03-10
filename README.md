@@ -8,7 +8,7 @@ This repository contains resources and scripts to understand Kubernetes better.
     - [Setup](#setup)
     - [Play](#play)
 
-## Bound Service-Account
+## Bound Service-Account Token
 
 ### Setup
 
